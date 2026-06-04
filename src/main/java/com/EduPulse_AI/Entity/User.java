@@ -1,10 +1,15 @@
 package com.EduPulse_AI.Entity;
 
+import com.EduPulse_AI.Enums.AccountStatus;
+import com.EduPulse_AI.Enums.AuthProvider;
+import com.EduPulse_AI.Enums.RoleType;
 import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
+
+
 
 
 @Entity
@@ -51,6 +56,10 @@ public class User {
 
         updatedAt = LocalDateTime.now();
 
+        status = AccountStatus.PENDING;
+
+        emailVerified = false;
+
     }
 
 
@@ -60,5 +69,27 @@ public class User {
         updatedAt = LocalDateTime.now();
 
     }
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private RoleType role;
+
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private AuthProvider provider;
+
+
+    @Enumerated(EnumType.STRING)
+    private AccountStatus status;
+
+
+    private String providerId;
+
+
+    private String profileImage;
+
+
+    private boolean emailVerified;
 
 }
